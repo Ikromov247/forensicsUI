@@ -1,0 +1,1 @@
+{"input_video_path": "/Users/sukhrob/PycharmProjects/forensicsUI/files/test_2_cars.mp4", "input_img_path": "/Users/sukhrob/PycharmProjects/forensicsUI/files/audi1.jpeg", "target_obj_id": 0, "target_feature_shape": [2048], "features_shape": [1, 2048, 1, 1]}

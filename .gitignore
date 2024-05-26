@@ -1,0 +1,7 @@
+/.venv/
+/models/
+/outputs/
+/files/
+old_todos.txt
+test.py
+metadata.json
