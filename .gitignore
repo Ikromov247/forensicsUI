@@ -1,7 +1,15 @@
 /.venv/
-/models/
+/models/YOLOv8L.pt
+/models/resnet50.pth
+/models/resnet50_v2.pth
+/models/resnet50_state.pth
+/models/Resnet50_kaggle_model.pth
+/models/ResNet50_kaggle_state.pth
+/models/Inception.pth
+/models/trained_yolo.pt
 /outputs/
 /files/
 old_todos.txt
 test.py
 metadata.json
+.idea
