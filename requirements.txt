@@ -19,7 +19,7 @@ joblib==1.4.0
 jsonschema==4.22.0
 jsonschema-specifications==2023.12.1
 kiwisolver==1.4.5
-lapx==0.5.8
+lapx==0.5.11.post1
 markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 matplotlib==3.8.4
