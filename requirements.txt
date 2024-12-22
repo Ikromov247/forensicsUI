@@ -63,6 +63,6 @@ tornado==6.4.2
 tqdm==4.66.2
 typing_extensions==4.11.0
 tzdata==2024.1
-ultralytics==8.2.6
+ultralytics==8.3.53
 urllib3==2.2.1
 watchdog==4.0.0
