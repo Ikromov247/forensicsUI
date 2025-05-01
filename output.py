@@ -4,7 +4,7 @@ from visualization import *
 class Output:
     def __init__(self):
         self.visualizer = Visualization()
-        pass
+
 
     def extract_video_subset(self, video_path, obj_data, output_path="outputs.mp4"):
         """Extracts a subset of a video based on frame indices and draws bounding boxes.

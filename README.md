@@ -1,56 +1,56 @@
-Forensics UI - Video Similarity Search
+# Forensics UI - Video Similarity Search
 
 This project implements a video similarity search application designed for forensic investigations. The application takes an image as input, identifies a target object within the image, and then searches for similar objects in a specified video.
 
-Features:
+## Features:
 
-Object Detection and Tracking: Uses YOLOv8 for robust object detection and tracking in video streams.
+- Object Detection and Tracking: Uses YOLOv8 for robust object detection and tracking in video streams.
 
-Feature Extraction: Employs a fine-tuned ResNet50 model to extract features from detected objects.
+- Feature Extraction: Employs a fine-tuned ResNet50 model to extract features from detected objects.
 
-Similarity Comparison: Calculates cosine similarity between the target object's features and features of objects detected in the video.
+- Similarity Comparison: Calculates cosine similarity between the target object's features and features of objects detected in the video.
 
-Visualization: Displays bounding boxes and similarity scores around detected objects in real-time on the video feed.
+- Visualization: Displays bounding boxes and similarity scores around detected objects in real-time on the video feed.
 
-Output Generation: Allows downloading videos of the top-k most similar objects, including annotations.
+- Output Generation: Allows downloading videos of the top-k most similar objects, including annotations.
 
-Database Integration: Stores object information, features, and bounding boxes in a SQLite database for persistence and efficient data management.
+- Database Integration: Stores object information, features, and bounding boxes in a SQLite database for persistence and efficient data management.
 
-Installation:
+## Installation:
 
-Clone the repository: git clone https://github.com/Ikromov247/forensicsUI.git
+- Clone the repository: git clone https://github.com/Ikromov247/forensicsUI.git
 
-Navigate to the project directory: cd forensicsUI
+- Navigate to the project directory: cd forensicsUI
 
-Create a virtual environment (recommended): python3 -m venv .venv
+- Create a virtual environment (recommended): python3 -m venv .venv
 
-Activate the virtual environment: source .venv/bin/activate
+- Activate the virtual environment: source .venv/bin/activate
 
-Install the required packages: pip install -r requirements.txt
+- Install the required packages: pip install -r requirements.txt
 
-Usage:
+## Usage:
 
-Provide Input: Place your target image (target_image.jpg) and input video (input_video.mp4) in the files directory.
+- Provide Input: Place your target image (target_image.jpg) and input video (input_video.mp4) in the files directory.
 
-Run the Application: Execute the main.py script: python main.py
+- Run the Application: Execute the main.py script: python main.py
+ 
+- Interact:
+ 
+- Toggle visualization on/off by pressing the 'v' key.
+ 
+- Press 'q' to quit the application.
 
-Interact:
+## Configuration:
 
-Toggle visualization on/off by pressing the 'v' key.
+- Modify the MIN_DETECTION_CONFIDENCE variable in main.py to adjust the confidence threshold for object detection.
 
-Press 'q' to quit the application.
+- Adjust the extraction_interval variable to control the frequency of feature extraction in performance mode.
 
-Configuration:
+- Update the database_name variable to specify the desired database name.
 
-Modify the MIN_DETECTION_CONFIDENCE variable in main.py to adjust the confidence threshold for object detection.
+- Modify paths to model files (models/YOLOv8L.pt, models/resnet50_state.pth) if necessary.
 
-Adjust the extraction_interval variable to control the frequency of feature extraction in performance mode.
-
-Update the database_name variable to specify the desired database name.
-
-Modify paths to model files (models/YOLOv8L.pt, models/resnet50_state.pth) if necessary.
-
-Output:
+## Output:
 
 A new SQLite database (with the specified name) will be created in the database directory, containing information about detected objects and their features.
 
@@ -66,7 +66,7 @@ Incorporate advanced object tracking algorithms to handle occlusions and reappea
 
 Integrate with cloud storage solutions for managing large datasets.
 
-Contributing:
+## Contributing:
 
 Contributions to the project are welcome! If you find any bugs, have suggestions for improvement, or would like to add new features, please feel free to create issues or pull requests on GitHub.
 
