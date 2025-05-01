@@ -1,0 +1,25 @@
+detection:
+  min_confidence: 0.7
+  model_path: "models/yolov8n.pt"
+  tracker_config: "bytetrack.yaml"
+  classes: null
+
+features:
+  model_name: "inception"
+  extraction_interval: 5
+  comparison_threshold: 0.8
+
+database:
+  name: null
+  tables:
+    objects: "CREATE TABLE IF NOT EXISTS objects (obj_id INTEGER, cls INTEGER, conf REAL, bbox TEXT, frame_ids TEXT, similarity REAL)"
+    features: "CREATE TABLE IF NOT EXISTS features (obj_id INTEGER, features BLOB)"
+    bboxes: "CREATE TABLE IF NOT EXISTS bboxes (obj_id INTEGER, frame_id INTEGER, bbox TEXT, PRIMARY KEY (obj_id, frame_id))"
+
+visualization:
+  enabled: true
+  show_bbox: true
+  show_similarity: true
+  show_id: true
+
+performance_mode: true 
