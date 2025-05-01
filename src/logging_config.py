@@ -1,71 +1,40 @@
 import logging
+import sys
 from pathlib import Path
 from typing import Optional
-import sys
 
-def setup_logging(
-    log_dir: Optional[Path] = None,
-    log_level: int = logging.INFO,
-    log_to_file: bool = True,
-    log_to_console: bool = True
-) -> logging.Logger:
+def setup_logging(log_dir: Optional[str] = None, level: int = logging.INFO):
     """
-    Set up logging configuration for the application.
+    Set up logging configuration.
     
     Args:
-        log_dir: Directory to store log files
-        log_level: Logging level (default: INFO)
-        log_to_file: Whether to log to file
-        log_to_console: Whether to log to console
-        
-    Returns:
-        Configured logger instance
+        log_dir: Directory for log files
+        level: Logging level
     """
-    # Create log directory if it doesn't exist
-    if log_dir and log_to_file:
-        log_dir.mkdir(parents=True, exist_ok=True)
+    # Create log directory
+    if log_dir:
+        log_path = Path(log_dir)
+        log_path.mkdir(exist_ok=True)
+        log_file = log_path / "forensics.log"
+    else:
+        log_file = None
     
-    # Create formatters
-    file_formatter = logging.Formatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    # Configure logging
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.StreamHandler(sys.stdout),
+            *([logging.FileHandler(log_file)] if log_file else [])
+        ]
     )
-    console_formatter = logging.Formatter(
-        '%(levelname)s - %(message)s'
-    )
-    
-    # Create handlers
-    handlers = []
-    
-    if log_to_file and log_dir:
-        file_handler = logging.FileHandler(log_dir / 'app.log')
-        file_handler.setFormatter(file_formatter)
-        handlers.append(file_handler)
-    
-    if log_to_console:
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.setFormatter(console_formatter)
-        handlers.append(console_handler)
-    
-    # Configure root logger
-    logger = logging.getLogger()
-    logger.setLevel(log_level)
-    
-    # Remove existing handlers
-    for handler in logger.handlers[:]:
-        logger.removeHandler(handler)
-    
-    # Add new handlers
-    for handler in handlers:
-        logger.addHandler(handler)
-    
-    return logger
 
 def get_logger(name: str) -> logging.Logger:
     """
-    Get a logger instance with the specified name.
+    Get a logger instance.
     
     Args:
-        name: Name of the logger
+        name: Logger name
         
     Returns:
         Logger instance

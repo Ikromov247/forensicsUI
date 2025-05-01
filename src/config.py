@@ -2,6 +2,110 @@ from dataclasses import dataclass
 from typing import Dict, Any
 import yaml
 from pathlib import Path
+import os
+
+# Base paths
+BASE_DIR = Path(__file__).parent.parent
+MODELS_DIR = BASE_DIR / "models"
+DATABASE_DIR = BASE_DIR / "database"
+LOGS_DIR = BASE_DIR / "logs"
+
+# Create directories
+for dir_path in [MODELS_DIR, DATABASE_DIR, LOGS_DIR]:
+    dir_path.mkdir(exist_ok=True)
+
+# Model paths
+MODEL_PATHS = {
+    "yolo": str(MODELS_DIR / "yolov8l.pt"),
+    "resnet": str(MODELS_DIR / "resnet50.pth"),
+    "inception": str(MODELS_DIR / "inception_v3.pth")
+}
+
+# Detection settings
+DETECTION_CONFIG = {
+    "confidence_threshold": 0.5,
+    "iou_threshold": 0.45,
+    "classes": None,  # None means all classes
+    "max_detections": 100
+}
+
+# Feature extraction settings
+FEATURE_CONFIG = {
+    "model": "inception",  # "resnet" or "inception"
+    "device": "mps",  # "cpu", "cuda", or "mps"
+    "batch_size": 32,
+    "normalize": True
+}
+
+# Feature comparison settings
+COMPARISON_CONFIG = {
+    "similarity_threshold": 0.8,
+    "top_k": 5,
+    "use_pca": True,
+    "pca_components": 128
+}
+
+# Database settings
+DATABASE_CONFIG = {
+    "name": "forensics",
+    "tables": {
+        "objects": """
+            CREATE TABLE IF NOT EXISTS objects (
+                obj_id INTEGER PRIMARY KEY,
+                cls INTEGER,
+                conf REAL,
+                bbox TEXT,
+                frame_ids TEXT,
+                similarity REAL
+            )
+        """,
+        "features": """
+            CREATE TABLE IF NOT EXISTS features (
+                obj_id INTEGER PRIMARY KEY,
+                features BLOB,
+                FOREIGN KEY (obj_id) REFERENCES objects (obj_id)
+            )
+        """
+    }
+}
+
+# Visualization settings
+VISUALIZATION_CONFIG = {
+    "enabled": True,
+    "window_name": "Object Tracking",
+    "bbox_color": (0, 255, 0),  # BGR
+    "text_color": (0, 255, 0),  # BGR
+    "font_scale": 0.3,
+    "thickness": 2
+}
+
+# Logging settings
+LOGGING_CONFIG = {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": str(LOGS_DIR / "forensics.log")
+}
+
+def get_config() -> Dict[str, Any]:
+    """
+    Get the complete configuration.
+    
+    Returns:
+        Dictionary containing all configuration settings
+    """
+    return {
+        "base_dir": BASE_DIR,
+        "models_dir": MODELS_DIR,
+        "database_dir": DATABASE_DIR,
+        "logs_dir": LOGS_DIR,
+        "model_paths": MODEL_PATHS,
+        "detection": DETECTION_CONFIG,
+        "feature": FEATURE_CONFIG,
+        "comparison": COMPARISON_CONFIG,
+        "database": DATABASE_CONFIG,
+        "visualization": VISUALIZATION_CONFIG,
+        "logging": LOGGING_CONFIG
+    }
 
 @dataclass
 class DetectionConfig:

@@ -1,10 +1,58 @@
-/.venv/
-**/models/
-**/*.pt
-**/*.pth
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+logs/
+*.log
+
+# Database
+database/
+*.db
+*.sqlite3
+
+# Models
+models/
+*.pt
+*.pth
+
+# Misc
+.DS_Store
+.env
+*.bak
+
+# Outputs
 /outputs/
 /files/
 old_todos.txt
 test.py
 metadata.json
-.idea
