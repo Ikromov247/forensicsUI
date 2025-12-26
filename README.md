@@ -1,72 +1,81 @@
-# Forensics Video Analysis
+# ForensicsUI - Object Finder
 
-A Python application for analyzing video footage using object detection and feature extraction.
+A computer vision application that finds matching objects in video footage by comparing against a target image. Built with YOLOv8 for detection, ByteTrack for tracking, and deep learning models for feature matching.
 
 ## Features
 
-- Object detection using YOLO
-- Feature extraction using pre-trained models (ResNet/Inception)
-- Feature comparison and matching
-- Visualization of detected objects
-- Database storage of objects and features
+- **Target Matching**: Upload an image of an object to find all similar objects in a video
+- **Real-time Tracking**: Uses ByteTrack to maintain object identity across frames
+- **Feature Comparison**: Deep learning-based similarity matching using Inception/ResNet
+- **Interactive UI**: Clean Streamlit web interface with progress tracking
+- **Processed Output**: Download annotated video with bounding boxes and similarity scores
 
-## Installation
+## Quick Start
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/forensics-video-analysis.git
-cd forensics-video-analysis
-```
+### 1. Install Dependencies
 
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+### 2. Download Models
 
-Run the application with a video file:
+Place your YOLO model in the `models/` directory:
+- `models/trained_yolo.pt` - YOLOv8 model
+
+For feature extraction (optional, uses pretrained by default):
+- `models/Inception.pth` - Inception-v3 weights
+- `models/ResNet50_v3.pth` - ResNet50 weights
+
+### 3. Run the App
+
 ```bash
-python src/main.py path/to/video.mp4
+cd src
+streamlit run app.py
 ```
 
-Optional arguments:
-- `--db-name`: Specify database name (default: "forensics")
-- `--no-vis`: Disable visualization
+The app will open in your browser at `http://localhost:8501`
+
+## Usage
+
+1. **Upload Target Image**: Upload an image containing the object you want to find
+2. **Analyze Target**: Click to detect and extract features from the target
+3. **Upload Video**: Upload the video to search through
+4. **Process**: Start processing to find matching objects
+5. **View Results**: See detected matches with similarity scores
+6. **Download**: Download the processed video with annotations
 
 ## Project Structure
 
 ```
-forensics-video-analysis/
+forensicsUI/
 ├── src/
-│   ├── core/
-│   │   ├── detection/
-│   │   │   └── detector.py
-│   │   ├── features/
-│   │   │   ├── extractor.py
-│   │   │   └── comparator.py
-│   │   └── application.py
-│   ├── database/
-│   │   ├── manager.py
-│   │   └── models.py
-│   ├── visualization/
-│   │   └── visualizer.py
-│   ├── exceptions.py
-│   ├── logging_config.py
-│   └── main.py
-├── database/
-├── logs/
-├── requirements.txt
-└── README.md
+│   ├── app.py              # Streamlit UI
+│   ├── config.py           # Configuration settings
+│   ├── detector.py         # YOLOv8 detection
+│   ├── features.py         # Feature extraction & comparison
+│   ├── video_processor.py  # Main processing pipeline
+│   ├── visualizer.py       # Draw annotations
+│   └── database.py         # SQLite storage
+├── models/                 # Model weights
+├── database/               # SQLite databases
+├── outputs/                # Processed videos
+└── requirements.txt
 ```
+
+## Configuration
+
+Adjust settings in the Streamlit sidebar:
+- **Similarity Threshold**: Minimum score to consider a match (0.5-1.0)
+- **Feature Model**: Choose between Inception (default) or ResNet
+- **Performance Mode**: Extract features less frequently for faster processing
+
+## Requirements
+
+- Python 3.9+
+- macOS (MPS), Linux (CUDA), or Windows (CPU/CUDA)
+- ~2GB RAM for feature extraction
 
 ## License
 
 MIT License
-
